@@ -16,9 +16,7 @@
         body {
             font-family: 'Arial', sans-serif;
             background-color: #000000;
-            /* Black background from logo */
             color: #FFFFFF;
-            /* White text for contrast */
             line-height: 1.6;
         }
 
@@ -28,7 +26,6 @@
             padding: 0 20px;
         }
 
-        /* Color palette from USER logo */
         :root {
             --blue: #00AEEF;
             --magenta: #FF00FF;
@@ -37,7 +34,6 @@
             --white: #FFFFFF;
         }
 
-        /* Header */
         header {
             background-color: var(--black);
             padding: 20px 0;
@@ -53,7 +49,6 @@
             align-items: center;
         }
 
-        /* Hero section */
         #hero {
             background: linear-gradient(to right, var(--blue), var(--magenta), var(--yellow));
             padding: 100px 0;
@@ -86,7 +81,6 @@
             color: var(--black);
         }
 
-        /* Sections */
         section {
             padding: 60px 0;
         }
@@ -104,7 +98,6 @@
             text-align: center;
         }
 
-        /* Poll section */
         #poll form {
             max-width: 600px;
             margin: 0 auto;
@@ -146,7 +139,6 @@
             display: none;
         }
 
-        /* Register section */
         #register {
             background-color: var(--black);
             border-top: 2px solid var(--magenta);
@@ -184,7 +176,21 @@
             color: var(--white);
         }
 
-        /* Footer */
+        #form-message {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            min-height: 1.5em;
+        }
+
+        #form-message.success {
+            color: #00ff00;
+        }
+
+        #form-message.error {
+            color: #ff4d4d;
+        }
+
         footer {
             background-color: var(--black);
             padding: 20px 0;
@@ -196,7 +202,6 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive design */
         @media (max-width: 768px) {
             #hero h1 {
                 font-size: 2rem;
@@ -254,7 +259,7 @@
             <p>Estos formatos incluyen combates emocionantes entre creadores de contenido, combinados con actuaciones
                 musicales y un gran impacto en la comunidad de habla hispana.</p>
             <p>Este tipo de evento no solo genera buzz masivo, sino que impulsa carreras, patrocinios y comunidad.
-                ¡Venda tu participación y conviértete en estrella!</p>
+                ¡Vende tu participación y conviértete en estrella!</p>
         </div>
     </section>
 
@@ -284,26 +289,34 @@
     <section id="register">
         <div class="container">
             <h2>Regístrate como Influencer o Sponsor</h2>
-            <p>Completa el formulario para Regístrarte como Influencer participante o sponsor</p>
-            <form id="register-form">
-                <input type="text" placeholder="Nombre Completo" required>
-                <input type="email" placeholder="Email" required>
-                <input type="text" placeholder="Usuario de Instagram/TikTok/Twitch" required>
-                <input type="number" placeholder="Número de Seguidores Aproximado" required>
-                <textarea placeholder="¿Por qué quieres participar? (opcional)" rows="4"></textarea>
+            <p>Completa el formulario para registrarte como influencer participante o sponsor. Te contactaremos pronto.
+            </p>
+
+            <form id="register-form" action="https://formspree.io/f/mdkopkjp" method="POST">
+                <input type="text" name="nombre" placeholder="Nombre Completo" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="usuario" placeholder="Usuario de Instagram/TikTok/Twitch" required>
+                <input type="number" name="seguidores" placeholder="Número de Seguidores Aproximado" required min="0">
+                <textarea name="motivo" placeholder="¿Por qué quieres participar? (opcional)" rows="4"></textarea>
+
+                <!-- Campo oculto opcional para personalizar el email que recibes -->
+                <input type="hidden" name="_subject" value="Nueva inscripción a UY.Eventos">
+
                 <button type="submit">Enviar Registro</button>
             </form>
+
+            <div id="form-message"></div>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 UY.Eventos. Todos los derechos reservados.</p>
+            <p>© 2026 UY.Eventos. Todos los derechos reservados.</p>
         </div>
     </footer>
 
     <script>
-        // Simple JS for poll (demo only, no backend)
+        // Poll (demo local)
         const pollForm = document.getElementById('poll-form');
         const pollResult = document.getElementById('poll-result');
         pollForm.addEventListener('submit', (e) => {
@@ -317,12 +330,39 @@
             }
         });
 
-        // Simple JS for register form (demo only)
+        // Registro REAL con Formspree + feedback
         const registerForm = document.getElementById('register-form');
-        registerForm.addEventListener('submit', (e) => {
+        const formMessage = document.getElementById('form-message');
+
+        registerForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            alert('¡Registro enviado! Te contactaremos pronto.');
-            registerForm.reset();
+            formMessage.textContent = '';
+            formMessage.className = '';
+
+            try {
+                const formData = new FormData(registerForm);
+
+                const response = await fetch('https://formspree.io/f/mdkopkjp', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    formMessage.textContent = '¡Registro enviado con éxito! Te contactaremos pronto.';
+                    formMessage.className = 'success';
+                    registerForm.reset();
+                } else {
+                    const errorData = await response.json();
+                    formMessage.textContent = errorData.error || 'Hubo un error al enviar. Intenta de nuevo.';
+                    formMessage.className = 'error';
+                }
+            } catch (err) {
+                formMessage.textContent = 'Error de conexión. Verifica tu internet e intenta nuevamente.';
+                formMessage.className = 'error';
+            }
         });
     </script>
 </body>
