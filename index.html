@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UY.Eventos - El Evento de Influencers en el Río de la Plata</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000000;
+            /* Black background from logo */
+            color: #FFFFFF;
+            /* White text for contrast */
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Color palette from USER logo */
+        :root {
+            --blue: #00AEEF;
+            --magenta: #FF00FF;
+            --yellow: #FFFF00;
+            --black: #000000;
+            --white: #FFFFFF;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--black);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 2px solid var(--blue);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Hero section */
+        #hero {
+            background: linear-gradient(to right, var(--blue), var(--magenta), var(--yellow));
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        #hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        #hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        #hero button {
+            background-color: var(--black);
+            color: var(--white);
+            border: 2px solid var(--yellow);
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #hero button:hover {
+            background-color: var(--yellow);
+            color: var(--black);
+        }
+
+        /* Sections */
+        section {
+            padding: 60px 0;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--yellow);
+        }
+
+        section p {
+            max-width: 800px;
+            margin: 0 auto 20px;
+            text-align: center;
+        }
+
+        /* Poll section */
+        #poll form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        #poll label {
+            display: flex;
+            align-items: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        #poll input[type="radio"] {
+            margin-right: 10px;
+            accent-color: var(--magenta);
+        }
+
+        #poll button {
+            background-color: var(--blue);
+            color: var(--white);
+            border: none;
+            padding: 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #poll button:hover {
+            background-color: var(--magenta);
+        }
+
+        #poll-result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            display: none;
+        }
+
+        /* Register section */
+        #register {
+            background-color: var(--black);
+            border-top: 2px solid var(--magenta);
+        }
+
+        #register form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        #register input,
+        #register textarea {
+            padding: 15px;
+            border: 1px solid var(--blue);
+            background-color: var(--black);
+            color: var(--white);
+            font-size: 1rem;
+        }
+
+        #register button {
+            background-color: var(--yellow);
+            color: var(--black);
+            border: none;
+            padding: 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #register button:hover {
+            background-color: var(--magenta);
+            color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--black);
+            padding: 20px 0;
+            text-align: center;
+            border-top: 2px solid var(--yellow);
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            #hero h1 {
+                font-size: 2rem;
+            }
+
+            #hero p {
+                font-size: 1.2rem;
+            }
+
+            section h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            #hero {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <svg width="200" height="60" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+                <text x="0" y="40" fill="#FFFFFF" font-size="35" font-weight="bold"
+                    font-family="Arial">UY.Eventos</text>
+                <rect x="0" y="45" width="60" height="5" fill="#00AEEF" />
+                <rect x="60" y="45" width="60" height="5" fill="#FF00FF" />
+                <rect x="120" y="45" width="60" height="5" fill="#FFFF00" />
+            </svg>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="container">
+            <h1>UY.Eventos: El Gran Evento de Influencers en el Río de la Plata</h1>
+            <p>Imagina un evento épico de combates entre streamers y creadores de contenido en Uruguay y Argentina.
+                ¡Únete y sé parte de un espectáculo que podría romper récords de audiencia en estas latitudes!</p>
+            <button onclick="document.getElementById('register').scrollIntoView({behavior: 'smooth'});">Regístrate
+                Ahora</button>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2>Sobre UY.Eventos</h2>
+            <p>UY.Eventos busca crear un evento anual de boxeo y entretenimiento con influencers locales, similar a
+                aquellos que han logrado millones de espectadores simultáneos en plataformas como Twitch.</p>
+            <p>Estos formatos incluyen combates emocionantes entre creadores de contenido, combinados con actuaciones
+                musicales y un gran impacto en la comunidad de habla hispana.</p>
+            <p>Este tipo de evento no solo genera buzz masivo, sino que impulsa carreras, patrocinios y comunidad.
+                ¡Venda tu participación y conviértete en estrella!</p>
+        </div>
+    </section>
+
+    <section id="poll">
+        <div class="container">
+            <h2>¿Qué Tipo de Eventos Te Gustaría Ver?</h2>
+            <p>¡Vota y ayúdanos a diseñar el evento perfecto!</p>
+            <form id="poll-form">
+                <label><input type="radio" name="event-type" value="Boxeo"> Boxeo (combates clásicos de
+                    influencers)</label>
+                <label><input type="radio" name="event-type" value="MMA"> MMA (Artes Marciales Mixtas, estilo UFC
+                    influencer)</label>
+                <label><input type="radio" name="event-type" value="Kickboxing"> Kickboxing (combates de pie con
+                    patadas)</label>
+                <label><input type="radio" name="event-type" value="Lucha Libre"> Lucha Libre (estilo WWE con shows
+                    teatrales)</label>
+                <label><input type="radio" name="event-type" value="Híbrido"> Eventos Híbridos (peleas + música y
+                    gaming)</label>
+                <label><input type="radio" name="event-type" value="Tag Team"> Tag Team (equipos de influencers en
+                    relevos)</label>
+                <button type="submit">Votar</button>
+            </form>
+            <div id="poll-result"></div>
+        </div>
+    </section>
+
+    <section id="register">
+        <div class="container">
+            <h2>Regístrate como Influencer o Sponsor</h2>
+            <p>Completa el formulario para Regístrarte como Influencer participante o sponsor</p>
+            <form id="register-form">
+                <input type="text" placeholder="Nombre Completo" required>
+                <input type="email" placeholder="Email" required>
+                <input type="text" placeholder="Usuario de Instagram/TikTok/Twitch" required>
+                <input type="number" placeholder="Número de Seguidores Aproximado" required>
+                <textarea placeholder="¿Por qué quieres participar? (opcional)" rows="4"></textarea>
+                <button type="submit">Enviar Registro</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 UY.Eventos. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JS for poll (demo only, no backend)
+        const pollForm = document.getElementById('poll-form');
+        const pollResult = document.getElementById('poll-result');
+        pollForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const selected = document.querySelector('input[name="event-type"]:checked');
+            if (selected) {
+                pollResult.textContent = `¡Gracias por votar por "${selected.value}"! Tus preferencias nos ayudan a mejorar.`;
+                pollResult.style.display = 'block';
+            } else {
+                alert('Por favor, selecciona una opción.');
+            }
+        });
+
+        // Simple JS for register form (demo only)
+        const registerForm = document.getElementById('register-form');
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('¡Registro enviado! Te contactaremos pronto.');
+            registerForm.reset();
+        });
+    </script>
+</body>
+
+</html>
